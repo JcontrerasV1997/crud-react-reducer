@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, {  useState } from "react";
 import ReactDOM from "react-dom";
 import { Button, Form, Modal } from "react-bootstrap";
 import { Reducer } from "../../hooks/Reducer";
 import { useForm } from "../../hooks/useForm";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer} from "react-toastify";
 export const ModalUpdate = ({ open, close, id, cita}) => {
-  
+  const [todos, handleDelete, handleAddTodo,handleUpdate] = Reducer();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
   const [{ mascota, propietario, telefono, fecha, hora, sintomas },handleInputChange,reset] = useForm({
     mascota: "",
     propietario: "",
@@ -16,9 +18,6 @@ export const ModalUpdate = ({ open, close, id, cita}) => {
     sintomas: "",
   });
 
-  
-  const [todos, handleDelete, handleAddTodo,handleUpdate] = Reducer();
- 
   const handleSubmit = (e) => {
     e.preventDefault();
     const Data = {
@@ -30,22 +29,21 @@ export const ModalUpdate = ({ open, close, id, cita}) => {
       hora: hora,
       sintomas: sintomas,
     };
-  
-    
-
      handleUpdate(Data);
-     reset();
+     window.location.reload(true);
+
   };
 
   return ReactDOM.createPortal(
     <Modal
       size="lg"
       show={open}
-      onHide={() => close}
-      aria-labelledby="example-modal-sizes-title-lg"
+      onHide={()=> close}
+      aria-labelledby="a"
       animation={false}>
-      <Modal.Header closeButton>
-        <Modal.Title id="example-modal-sizes-title-lg">
+      
+      <Modal.Header  closeButton>
+        <Modal.Title id="a">
         Actualizar cita : {cita.id}
         </Modal.Title>
       </Modal.Header>

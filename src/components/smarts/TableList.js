@@ -8,16 +8,18 @@ export const TableList = ({ todos, handleDelete }) => {
   const [getId, setId] = useState();
   const [getCita, setCita] = useState({});
 
-  const extraerId= (id,cita,open) =>{
-setId(id);
-setOpen(open);
-setCita(cita);
-  }
+
+  const extraerId = (id, cita, open) => {
+    setId(id);
+    setOpen(open);
+    setCita(cita);
+  };
   return (
     <>
       <ToastContainer></ToastContainer>
+      <br/>
       <table className="table">
-        <caption>List of users</caption>
+        <caption>Citas</caption>
         <thead>
           <tr>
             <th scope="col">id</th>
@@ -45,15 +47,25 @@ setCita(cita);
                   className="btn btn-danger ml-5"
                   onClick={() => handleDelete(todo.id)}
                 >
-                  BORRAR
+                  Eliminar
                 </button>
-                <Button onClick={() => extraerId(todo.id,todo,true)}>Large modal</Button>
+
+                |
+
+                <Button className="mr-3" onClick={() => extraerId(todo.id, todo, true)}>
+                  Editar
+                </Button>
               </td>
             </tr>
           </tbody>
         ))}
       </table>
-      <ModalUpdate open={open} close={false} id={getId} cita={getCita}></ModalUpdate>
+      <ModalUpdate
+        open={open}
+        close={!open}
+        id={getId}
+        cita={getCita}
+      ></ModalUpdate>
     </>
   );
 };

@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { todoReducer } from "../helper/todoReducer";
 import { toast } from 'react-toastify';
 
@@ -8,10 +7,6 @@ const init = () => {
 };
 export const Reducer = () => {
   const [todos, dispatch] = useReducer(todoReducer, [], init);
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
 
   const handleDelete = (DataId) => {
     const action = {
@@ -40,6 +35,11 @@ export const Reducer = () => {
       payload: Data,
     });
   };
+  useEffect(() => {
+    localStorage.setItem ("todos", JSON.stringify(todos));
+  }, [todos]);
+
+
 
   return [todos, handleDelete, handleAddTodo,handleUpdate];
 };
